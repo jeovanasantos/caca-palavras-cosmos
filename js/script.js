@@ -1,81 +1,92 @@
-(function(){
-	'use strict';
+(function() {
+    'use strict';
 
-	var $form = document.querySelector('[data-js="form"]');
-	var $search = document.querySelector('[data-js="search"]');
-	var $tbody = document.querySelector('[data-js="tbody"]');
+    var $form = document.querySelector('[data-js="form"]');
+    var $search = document.querySelector('[data-js="search"]');
+    var $tbody = document.querySelector('[data-js="tbody"]');
 
-	function getIndex(name){
-		if(gameWords.indexOf(name) > -1){
-			var i = gameWords.indexOf(name);
-			return indexes[i];
-		}
-		
-		$search.value = '';
-		return false;
-	}
+    function getIndex(name) {
+        var i = gameWords.indexOf(name.toUpperCase());
+        if (i > -1) {
+            return indexes[i];
+        }
 
-	function selectTd( line , column ){
-		var tr = $tbody.children[line];
-		var td = tr.children[column];
-		td.classList.add("color");
-		$search.value = '';
-	}
+        $search.value = '';
+        return false;
+    }
 
-	var letras = [
-			['e','t','e','i','t','e','v','e','o','r','a','e','s','c','o','r','h','p','l','d','d','w'],
-            ['p','a','d','u','t','s','s','l','s','s','h','s','a','t','u','r','n','o','d','t','h','a'],
-            ['e','o','f','e','r','l','e','t','t','g','o','c','i','e','u','t','d','o','n','a','t','s'],
-            ['e','l','t','t','r','s','s','e','r','a','v','a','l','g','e','d','c','h','s','o','a','r'],
-            ['t','a','l','a','e','h','r','u','n','g','o','s','g','l','d','s','f','h','t','r','t','e'],
-            ['r','e','i','a','t','o','r','d','h','e','r','n','u','a','e','d','h','w','e','t','y','f'],
-            ['l','d','b','n','i','a','e','h','c','c','b','r','n','h','s','e','e','c','i','a','o','u'],
-            ['o','l','i','d','n','y','o','i','e','h','i','u','y','l','l','o','v','o','p','n','a','l'],
-            ['t','m','e','o','a','e','o','o','e','c','t','s','l','i','v','h','s','t','d','d','e','w'],
-            ['u','a','a','l','w','i','k','o','o','n','a','u','o','o','h','n','t','o','u','b','e','t'],
-            ['r','t','e','r','r','a','i','a','t','t','l','s','n','r','s','t','l','n','n','b','t','t'],
-            ['a','u','e','o','t','r','s','p','e','l','f','r','e','e','k','a','r','s','h','o','i','h'],
-            ['c','e','o','e','a','e','o','l','c','e','r','e','s','a','t','t','h','l','o','k','s','n'],
-            ['i','h','r','c','v','u','i','i','r','m','e','u','t','r','a','n','s','l','a','ç','a','o'],
-            ['a','e','a','v','h','t','h','a','l','l','t','p','l','u','t','a','o','n','e','f','a','i'],
-            ['h','g','n','e','e','w','l','o','p','l','a','n','e','t','a','f','n','h','f','i','d','e']
-	];
+    function selectTd(line, column) {
+        var tr = $tbody.children[line];
+        var td = tr.children[column];
+        td.classList.add("color");
+        $search.value = '';
+    }
 
-	var lines = [];
+    var letras = [
+        ['E', 'T', 'C', 'O', 'U', 'W', 'S', 'R', 'I', 'T', 'T', 'S', 'B', 'E', 'E', 'M', 'O', 'U'],
+        ['I', 'R', 'S', 'V', 'M', 'P', 'O', 'T', 'D', 'E', 'D', 'E', 'J', 'D', 'E', 'T', 'Y', 'R'],
+        ['S', 'I', 'G', 'E', 'T', 'E', 'L', 'I', 'N', 'S', 'A', 'T', 'U', 'R', 'N', 'O', 'F', 'A'],
+        ['W', 'N', 'A', 'N', 'M', 'N', 'R', 'A', 'L', 'U', 'A', 'P', 'P', 'O', 'E', 'B', 'E', 'N'],
+        ['H', 'D', 'N', 'U', 'A', 'F', 'I', 'C', 'N', 'I', 'E', 'L', 'I', 'C', 'N', 'I', 'M', 'O'],
+        ['R', 'A', 'I', 'S', 'R', 'S', 'R', 'T', 'U', 'E', 'E', 'U', 'T', 'H', 'G', 'N', 'A', 'N'],
+        ['N', 'D', 'M', 'B', 'T', 'L', 'T', 'T', 'E', 'R', 'T', 'T', 'E', 'O', 'T', 'C', 'K', 'H'],
+        ['W', 'C', 'E', 'R', 'E', 'S', 'E', 'U', 'I', 'M', 'I', 'A', 'R', 'S', 'I', 'W', 'E', 'A'],
+        ['R', 'H', 'D', 'Y', 'D', 'R', 'R', 'S', 'G', 'A', 'S', 'O', 'S', 'O', 'S', 'T', 'M', 'U'],
+        ['E', 'E', 'E', 'W', 'R', 'O', 'L', 'H', 'O', 'U', 'L', 'P', 'E', 'S', 'R', 'T', 'A', 'M'],
+        ['A', 'N', 'S', 'A', 'P', 'H', 'N', 'E', 'T', 'U', 'N', 'O', 'O', 'E', 'S', 'K', 'K', 'E'],
+        ['I', 'A', 'A', 'A', 'U', 'M', 'N', 'C', 'A', 'L', 'I', 'S', 'T', 'O', 'N', 'E', 'E', 'A']
+    ];
 
-	letras.map(function(item, index){
-		lines[index] = document.querySelector('[data-js="line'+ index +'"]');
-	});
+    var lines = [];
 
-	letras.forEach(function(item, index){
-		letras[index].forEach(function(item){
-			lines[index].insertAdjacentHTML('beforeend', '<td>' + item + '</td>');
-		});
-	});
+    letras.map(function(item, index) {
+        lines[index] = document.querySelector('[data-js="line' + index + '"]');
+    });
 
-	var indexes = [ 
-		[ [0,10], [1,9], [2,8], [3,7], [4,6], [5,5], [6,4], [7,3], [8,2] ], // asteroide
-		[ [1,11], [1,12], [1,13], [1,14], [1,15], [1,16], [1,17]], // SATURNO
-        [ [3,5], [3,6], [3,7], [3,8] ], // SERA
-        [ [4,0], [4,1], [4,2] ], // ταια (TAIA, uma palavra grega)
-        [ [5,4], [5,5], [5,6], [5,7], [5,8], [5,9] ], // ORDENHA
-        [ [6,10], [6,11], [6,12], [6,13], [6,14] ], // RNHS
-        [ [8,4], [8,5], [8,6], [8,7] ], // WIK
-        [ [9,9], [9,10], [9,11], [9,12], [9,13], [9,14] ], // KOONA
-        [ [12,4], [12,5], [12,6], [12,7], [12,8], [12,9], [12,10], [12,11], [12,12], [12,13], [12,14] ], // LOVA
-        [ [13,13], [13,14], [13,15], [13,16], [13,17], [13,18], [13,19], [13,20] ], // TRANSLACAO
-        [ [14,5], [14,6], [14,7], [14,8], [14,9], [14,10] ], // HALLT
-        [ [15,7], [15,8], [15,9], [15,10], [15,11], [15,12], [15,13], [15,14] ], // PLANA
-	]
-	var gameWords = ['asteroide', 'saturno', 'plutao' ];
+    letras.forEach(function(item, index) {
+        letras[index].forEach(function(item) {
+            lines[index].insertAdjacentHTML('beforeend', '<td>' + item + '</td>');
+        });
+    });
 
-	$form.addEventListener('submit', function(event){
-		event.preventDefault();
-		var valueSearch = $search.value;
-		var getIndexes = getIndex(valueSearch);
-		for(var i = 0; i < getIndexes.length; i++){
-			selectTd(getIndexes[i][0], getIndexes[i][1])
-		}
-	}, false);
+    var indexes = [
+        [[2, 9], [2, 10], [2, 11], [2, 12], [2, 13], [2, 14], [2, 15]], // SATURNO
+        [[10, 6], [10, 7], [10, 8], [10, 9], [10, 10], [10, 11]], // NETUNO
+        [[1, 3], [2, 3], [3, 3], [4, 3], [5, 3]], // VENUS
+        [[3, 4], [4, 4], [5, 4], [6, 4], [7, 4]], // MARTE
+        [[2, 13], [3, 13], [4, 13], [5, 13], [6, 13], [7, 13], [8, 13], [9,13]], // ROCHOSOS
+        [[7, 1], [7, 2], [7, 3], [7, 4], [7, 5]], // CERES
+        [[3, 8], [3, 9], [3, 10]], // LUA 
+        [[4, 16], [5, 16], [6, 16], [7, 16], [8, 16], [9, 16],[10,16],[11,16]], // MAKEMAKE
+        [[5, 10], [6, 9], [7, 8], [8, 7], [9, 6]], // ERIS
+        [[8, 8], [8, 9], [8, 10], [8, 11],[8,12],[8,13],[8,14]], // GASOSOS
+        [[6, 17], [7, 17], [8, 17], [9, 17],[10,17],[11,17]], // HAUMEA 
+        [[1, 12], [2, 12], [3, 12], [4, 12], [5, 12], [6, 12], [7, 12]], // JUPITER
+        [[6, 7], [7, 6], [8, 5], [9, 4], [10, 3]], // TERRA 
+        [[3, 11], [4, 11], [5, 11], [6, 11], [7, 11], [8, 11]], // PLUTAO
+        [[0, 17], [1, 17], [2, 17], [3, 17], [4, 17]], // URANO
+        [[1, 4], [2, 5], [3, 6], [4, 7],[5, 8],[6, 9],[7, 10],[8,11]], // MERCURIO
+        [[1, 5], [2, 6], [3, 7], [4, 8],[5, 9],[6, 10],[7, 11],[8,12]] // PLANETAS
+        
+    ];
 
-}) ();
+    var gameWords = [
+        'SATURNO', 'NETUNO', 'VENUS', 'MARTE', 'ROCHOSOS', 'CERES',
+        'LUA', 'MAKEMAKE', 'ERIS', 'GASOSOS', 'HAUMEA', 'JUPITER',
+        'TERRA', 'PLUTAO', 'URANO', 'MERCURIO', 'PLANETAS'
+    ];
+
+    $form.addEventListener('submit', function(event) {
+        event.preventDefault();
+        var valueSearch = $search.value;
+        var getIndexes = getIndex(valueSearch);
+        if (getIndexes) {
+            for (var i = 0; i < getIndexes.length; i++) {
+                selectTd(getIndexes[i][0], getIndexes[i][1]);
+            }
+        } else {
+            alert('Palavra não encontrada.');
+        }
+    }, false);
+
+})();

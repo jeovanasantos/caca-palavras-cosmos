@@ -90,3 +90,26 @@
     }, false);
 
 })();
+
+function checkAnswers() {
+	const answers = {
+		q1: "Ganimedes",
+		q2: "Vênus",
+		q3: "Mercúrio",
+		q4: "Europa",
+		q5: "Saturno"
+	};
+
+	let score = 0;
+	const form = document.getElementById('quizForm');
+	const resultDiv = document.getElementById('result');
+
+	Object.keys(answers).forEach((key) => {
+		const userAnswer = form[key].value.trim();
+		if (userAnswer.toLowerCase() === answers[key].toLowerCase()) {
+			score++;
+		}
+	});
+
+	resultDiv.innerHTML = `Você acertou ${score} de ${Object.keys(answers).length} perguntas.`;
+}
